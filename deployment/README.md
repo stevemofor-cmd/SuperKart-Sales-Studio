@@ -67,6 +67,24 @@ kept private because the frontend calls the backend over the Docker network.
 If the Codespaces port panel does not apply the configured visibility, set
 8501 to **Public** and leave 7860 **Private**.
 
+### Verified public preview
+
+The live Streamlit interface is available at
+[Shelf Signal — SuperKart Sales Studio](https://superkart-sales-studio-q99g64w776qh976j-8501.app.github.dev/).
+Only port 8501 is public; the inference API on port 7860 remains private.
+
+The public UI's API connection check and single-item flow were exercised
+successfully. The supplied 10-row batch returned eight predictions and two
+row-level review errors for unsupported `Supermarket Type3` rows 5 and 10.
+Evidence captured from the public interface:
+
+- [Single-product inference screenshot](../screenshots/public-single-prediction.png)
+- [Batch inference screenshot](../screenshots/public-batch-inference.png)
+
+GitHub may show its one-time public-port safety notice on first access. A
+Codespace can suspend when idle; its `postStartCommand` restarts the containers
+when the Codespace resumes.
+
 Verify the forwarded Streamlit URL, then test the single form and batch upload
 through that browser URL. Use the supplied model-ready batch file or download
 the one-row model-input template in the app. Capture separate screenshots of
