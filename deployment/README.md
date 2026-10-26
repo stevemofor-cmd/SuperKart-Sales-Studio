@@ -88,8 +88,10 @@ Evidence captured from the live Codespaces interface:
 - [Single-product inference screenshot](../screenshots/public-single-prediction.png)
 - [Batch inference screenshot](../screenshots/public-batch-inference.png)
 
-The screenshots show the actual application page content without browser
-chrome. The public URL is linked above rather than recreated in an overlay.
+Both screenshots are genuine Chrome window captures with the forwarded public
+URL visible in the browser address bar. The batch capture includes the complete
+10-row summary, all eight predictions, and the review table for unsupported
+rows 5 and 10.
 
 GitHub may show its one-time public-port safety notice on first access. A
 Codespace can suspend when idle; its `postStartCommand` restarts the containers

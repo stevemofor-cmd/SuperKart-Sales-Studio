@@ -92,6 +92,7 @@ def predict_batch():
 
     valid_rows: list[tuple[int, dict[str, object]]] = []
     errors = []
+    # Validate each record independently so unsupported rows do not block the valid batch.
     # Preserve source row numbers while allowing valid rows to predict in one call.
     for row_number, (_, series) in enumerate(frame.iterrows(), start=1):
         try:

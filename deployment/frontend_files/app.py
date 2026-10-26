@@ -408,6 +408,7 @@ with single_tab:
             )
 
     if submitted:
+        # Keep the browser-facing form in raw fields; the API applies the shared feature contract.
         # Keep raw form values on the shared training/inference feature contract.
         raw_record = {
             "Product_Id": product_id,
@@ -491,6 +492,7 @@ with batch_tab:
         "Estimate batch", type="primary", use_container_width=True
     ):
         try:
+            # Batch uploads use the downloadable model-ready schema, unlike the raw single-item form.
             source = pd.read_csv(uploaded)
         except (UnicodeDecodeError, pd.errors.ParserError, pd.errors.EmptyDataError) as exc:
             st.error(f"Could not read the CSV: {exc}")
