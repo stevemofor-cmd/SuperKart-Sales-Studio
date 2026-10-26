@@ -72,25 +72,29 @@ If the Codespaces port panel does not apply the configured visibility, set
 The live Streamlit interface is available at
 [Shelf Signal — SuperKart Sales Studio](https://superkart-sales-studio-q99g64w776qh976j-8501.app.github.dev/).
 Only port 8501 is public; the inference API on port 7860 remains private.
+The private API health endpoint is
+[available to authorized Codespaces users](https://superkart-sales-studio-q99g64w776qh976j-7860.app.github.dev/health);
+it requires access to this Codespace. The frontend calls the API privately as
+`http://backend:7860`. The backend source is in the
+[public repository](https://github.com/stevemofor-cmd/SuperKart-Sales-Studio/tree/main/deployment/backend_files).
+The full project is available at
+[SuperKart Sales Studio on GitHub](https://github.com/stevemofor-cmd/SuperKart-Sales-Studio).
 
 The public UI's API connection check and single-item flow were exercised
 successfully. The supplied 10-row batch returned eight predictions and two
 row-level review errors for unsupported `Supermarket Type3` rows 5 and 10.
-Evidence captured from the public interface:
+Evidence captured from the live Codespaces interface:
 
 - [Single-product inference screenshot](../screenshots/public-single-prediction.png)
 - [Batch inference screenshot](../screenshots/public-batch-inference.png)
 
+The screenshots show the actual application page content without browser
+chrome. The public URL is linked above rather than recreated in an overlay.
+
 GitHub may show its one-time public-port safety notice on first access. A
 Codespace can suspend when idle; its `postStartCommand` restarts the containers
-when the Codespace resumes.
-
-Verify the forwarded Streamlit URL, then test the single form and batch upload
-through that browser URL. Use the supplied model-ready batch file or download
-the one-row model-input template in the app. Capture separate screenshots of
-the completed single prediction and batch results, with the forwarded UI URL
-visible. Record only the actual forwarded URL in the final submission; do not
-guess it from the Codespace name.
+when the Codespace resumes. After a resume, confirm that port 8501 is Public
+and port 7860 is Private before sharing the UI link.
 
 Keep GitHub credentials in the account/Codespaces secret manager; do not add
 tokens to source, notebooks, HTML, or logs.
