@@ -318,7 +318,10 @@ with st.sidebar:
             st.error(f"Connection check failed: {exc}")
 
     st.markdown("---")
-    st.caption("The browser interface and prediction service run separately.")
+    st.caption(
+        "This endpoint is used by Streamlit, not the browser. The public UI calls "
+        "the API over the private Docker network."
+    )
 
 st.markdown(
     """
@@ -352,7 +355,11 @@ with single_tab:
             left, right = st.columns(2)
             with left:
                 product_id = st.text_input("Product_Id", "FD6114").strip().upper()
-                product_type = st.selectbox("Product_Type", PRODUCT_TYPES)
+                product_type = st.selectbox(
+                    "Product_Type",
+                    PRODUCT_TYPES,
+                    index=PRODUCT_TYPES.index("Frozen Foods"),
+                )
                 product_weight = st.number_input(
                     "Product_Weight", min_value=0.01, value=12.66, step=0.1
                 )
@@ -371,9 +378,13 @@ with single_tab:
                     "Product_MRP", min_value=0.01, value=117.08, step=0.1
                 )
             with right:
-                store_size = st.selectbox("Store_Size", ["High", "Medium", "Small"])
+                store_size = st.selectbox(
+                    "Store_Size", ["High", "Medium", "Small"], index=1
+                )
                 city_type = st.selectbox(
-                    "Store_Location_City_Type", ["Tier 1", "Tier 2", "Tier 3"]
+                    "Store_Location_City_Type",
+                    ["Tier 1", "Tier 2", "Tier 3"],
+                    index=1,
                 )
                 store_type = st.selectbox(
                     "Store_Type",
@@ -383,6 +394,7 @@ with single_tab:
                         "Supermarket Type1",
                         "Supermarket Type2",
                     ],
+                    index=3,
                 )
                 establishment_year = st.number_input(
                     "Store_Establishment_Year",
@@ -396,6 +408,7 @@ with single_tab:
             )
 
     if submitted:
+        # Keep raw form values on the shared training/inference feature contract.
         raw_record = {
             "Product_Id": product_id,
             "Product_Weight": product_weight,
@@ -522,7 +535,13 @@ with batch_tab:
                         rows.metric("Rows received", result["rows_received"])
                         predicted.metric("Predicted", result["predicted_count"])
                         rejected.metric("Needs review", result["error_count"])
-                        predictions = pd.DataFrame(result["predictions"])
+                        predictions = pd.DataFrame(
+                            result["predictions"],
+                            columns=[
+                                "row",
+                                "Predicted_Product_Store_Sales_Total",
+                            ],
+                        )
                         if not predictions.empty:
                             st.subheader("Sales estimates")
                             st.dataframe(

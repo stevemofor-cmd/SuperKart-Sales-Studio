@@ -52,6 +52,7 @@ def predict():
     if not isinstance(payload, dict):
         return jsonify({"error": "Request body must be a JSON object."}), 400
     try:
+        # Reject unsupported categories before sending data to the estimator.
         row = validate_model_record(payload)
     except ValueError as exc:
         return jsonify({"error": str(exc)}), 400
@@ -91,6 +92,7 @@ def predict_batch():
 
     valid_rows: list[tuple[int, dict[str, object]]] = []
     errors = []
+    # Preserve source row numbers while allowing valid rows to predict in one call.
     for row_number, (_, series) in enumerate(frame.iterrows(), start=1):
         try:
             valid_rows.append(
