@@ -1,0 +1,25 @@
+{
+  "name": "SuperKart Sales Studio",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true,
+      "installDockerBuildx": true
+    }
+  },
+  "forwardPorts": [7860, 8501],
+  "portsAttributes": {
+    "7860": {
+      "label": "SuperKart API (private)",
+      "onAutoForward": "silent",
+      "visibility": "private"
+    },
+    "8501": {
+      "label": "Shelf Signal sales interface",
+      "onAutoForward": "openBrowser",
+      "visibility": "public"
+    }
+  },
+  "postCreateCommand": "docker compose -f deployment/docker-compose.yml up --build -d",
+  "postStartCommand": "docker compose -f deployment/docker-compose.yml up -d"
+}

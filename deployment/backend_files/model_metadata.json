@@ -1,0 +1,26 @@
+{
+  "selected_model": "Random Forest",
+  "feature_columns": [
+    "Product_Weight",
+    "Product_Sugar_Content",
+    "Product_Allocated_Area",
+    "Product_MRP",
+    "Store_Size",
+    "Store_Location_City_Type",
+    "Store_Type",
+    "Product_Id_char",
+    "Store_Age_Years",
+    "Product_Type_Category"
+  ],
+  "target": "Product_Store_Sales_Total",
+  "store_age_reference_year": 2025,
+  "training_rows": 7010,
+  "test_rows": 1753,
+  "selection_metric": "5-fold training RMSE; lower is better",
+  "test_metrics": {
+    "RMSE": 280.7932651619206,
+    "MAE": 105.96990763724939,
+    "R2": 0.9308996703103969,
+    "MAPE_percent": 3.8501283095359953
+  }
+}

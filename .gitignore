@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+**/pat_info.txt
+**/__pycache__/
+**/*.py[cod]
+**/.ipynb_checkpoints/
+course_material/
+sourceData/Full_Code_SuperKart_Model_Deployment_Notebook.ipynb
+*.log
